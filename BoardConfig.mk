@@ -35,6 +35,23 @@
 # inherit from the proprietary version
 # needed for BP-flashing updater extensions
 
+TARGET_NO_BOOTLOADER := true
+TARGET_BOARD_PLATFORM := msm8960
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+#TARGET_CPU_SMP := true
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_VARIANT := krait
+TARGET_FPU_VARIANT := vfpv4
+ARCH_ARM_HAVE_TLS_REGISTER := true
+
+#Some SoCs that support NEON nevertheless perform better with a non-NEON than a
+#NEON memcpy().  This patch adds build variable ARCH_ARM_USE_NON_NEON_MEMCPY,
+#which can be set in BoardConfig.mk.  When ARCH_ARM_USE_NON_NEON_MEMCPY is
+#defined, we compile in the non-NEON optimized memcpy() even if the SoC supports
+#NEON.
+ARCH_ARM_USE_NON_NEON_MEMCPY := true
+
 TARGET_USERIMAGES_USE_EXT4 := true
 
 #BOARD_SYSTEMIMAGE_PARTITION_SIZE := 681574400
@@ -54,9 +71,24 @@ TARGET_NO_BOOTLOADER := true
 
 #TARGET_RELEASETOOLS_EXTENSIONS := device/asus/grouper
 
+TARGET_KERNEL_SOURCE := kernel/lge/codeaurora
+TARGET_KERNEL_CONFIG := fx3_defconfig
 TARGET_PREBUILT_KERNEL := device/lge/fx3/kernel
+#BUILD_KERNEL := true
 
-BOARD_USE_CUSTOM_RECOVERY_FONT := true
+TARGET_BOOTLOADER_BOARD_NAME := fx3
+#TARGET_BOARD_INFO_FILE := device/asus/grouper/board-info.txt
+
+TARGET_NO_BOOTLOADER := true
+
+# Avoid the generation of ldrcc instructions
+#NEED_WORKAROUND_CORTEX_A9_745320 := true
+
+BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
+
+#TARGET_RELEASETOOLS_EXTENSIONS := device/asus/grouper
+
+#BOARD_USE_CUSTOM_RECOVERY_FONT := true
 
 ## COT ##
 BOARD_CUSTOM_RECOVERY_UI := ../../device/asus/grouper/recovery/default_recovery_ui.c
@@ -66,3 +98,4 @@ BOARD_CUSTOM_RECOVERY_POWER_PROFILE := ../../device/asus/grouper/recovery/custom
 BOARD_TS_MAX_ROWS := 20
 DEVICE_RESOLUTION := 480x800
 BOARD_RECOVERY_RELEASE_TYPE := Alpha 1
+
