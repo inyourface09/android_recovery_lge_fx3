@@ -1,101 +1,35 @@
-# Copyright (C) 2010 The Android Open Source Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-#
-# This file sets variables that control the way modules are built
-# thorughout the system. It should not be used to conditionally
-# disable makefiles (the proper mechanism to control what gets
-# included in a build is to use PRODUCT_PACKAGES in a product
-# definition file).
-#
-
-# WARNING: This line must come *before* including the proprietary
-# variant, so that it gets overwritten by the parent (which goes
-# against the traditional rules of inheritance).
-# The proprietary variant sets USE_CAMERA_STUB := false, this way
-# we use the camera stub when the vendor tree isn't present, and
-# the true camera library when the vendor tree is available.  Similarly,
-# we set USE_PROPRIETARY_AUDIO_EXTENSIONS to true in the proprietary variant as
-# well.
-
-
-#-include vendor/asus/grouper/BoardConfigVendor.mk
+USE_CAMERA_STUB := true
 
 # inherit from the proprietary version
-# needed for BP-flashing updater extensions
+-include vendor/lge/fx3/BoardConfigVendor.mk
 
+TARGET_ARCH := arm
 TARGET_NO_BOOTLOADER := true
-TARGET_BOARD_PLATFORM := msm8960
+TARGET_BOARD_PLATFORM := unknown
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-#TARGET_CPU_SMP := true
 TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_CPU_VARIANT := krait
-TARGET_FPU_VARIANT := vfpv4
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
-#Some SoCs that support NEON nevertheless perform better with a non-NEON than a
-#NEON memcpy().  This patch adds build variable ARCH_ARM_USE_NON_NEON_MEMCPY,
-#which can be set in BoardConfig.mk.  When ARCH_ARM_USE_NON_NEON_MEMCPY is
-#defined, we compile in the non-NEON optimized memcpy() even if the SoC supports
-#NEON.
-ARCH_ARM_USE_NON_NEON_MEMCPY := true
-
-TARGET_USERIMAGES_USE_EXT4 := true
-
-#BOARD_SYSTEMIMAGE_PARTITION_SIZE := 681574400
-#BOARD_USERDATAIMAGE_PARTITION_SIZE := 6567231488
-#BOARD_FLASH_BLOCK_SIZE := 4096
-
 TARGET_BOOTLOADER_BOARD_NAME := fx3
-#TARGET_BOARD_INFO_FILE := device/asus/grouper/board-info.txt
 
-TARGET_NO_BOOTLOADER := true
+BOARD_KERNEL_CMDLINE := androidboot.hardware=fx3s user_debug=31 vmalloc=308M
+BOARD_KERNEL_BASE := 0x80200000
+BOARD_KERNEL_PAGESIZE := 2048
 
-# Avoid the generation of ldrcc instructions
-#NEED_WORKAROUND_CORTEX_A9_745320 := true
+# fix this up by examining /proc/mtd on a running device
+BOARD_BOOTIMAGE_PARTITION_SIZE := 0x105c0000
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x105c0000
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x105c0000
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x105c0000
+BOARD_FLASH_BLOCK_SIZE := 131072
 
-#BOARD_HAS_NO_SELECT_BUTTON := true
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_grouper
-
-#TARGET_RELEASETOOLS_EXTENSIONS := device/asus/grouper
-
-TARGET_KERNEL_SOURCE := kernel/lge/codeaurora
-TARGET_KERNEL_CONFIG := fx3_defconfig
 TARGET_PREBUILT_KERNEL := device/lge/fx3/kernel
-#BUILD_KERNEL := true
 
-TARGET_BOOTLOADER_BOARD_NAME := fx3
-#TARGET_BOARD_INFO_FILE := device/asus/grouper/board-info.txt
+BOARD_HAS_NO_SELECT_BUTTON := true
 
-TARGET_NO_BOOTLOADER := true
+BOARD_CUSTOM_RECOVERY_UI := ../../device/lge/fx3/recovery/default_recovery_ui.c
+BOARD_CUSTOM_RECOVERY_POWER_PROFILE := ../../device/lge/fx3/recovery/custom_power.c
 
-# Avoid the generation of ldrcc instructions
-#NEED_WORKAROUND_CORTEX_A9_745320 := true
-
-BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
-
-#TARGET_RELEASETOOLS_EXTENSIONS := device/asus/grouper
-
-#BOARD_USE_CUSTOM_RECOVERY_FONT := true
-
-## COT ##
-BOARD_CUSTOM_RECOVERY_UI := ../../device/asus/grouper/recovery/default_recovery_ui.c
-BOARD_CUSTOM_RECOVERY_POWER_PROFILE := ../../device/asus/grouper/recovery/custom_power.c
-# BOARD_TS_MAX_ROWS sets the MAX_ROWS amount.
-# Use this to limit the height of the scrolling text
-BOARD_TS_MAX_ROWS := 20
 DEVICE_RESOLUTION := 480x800
 BOARD_RECOVERY_RELEASE_TYPE := Alpha 1
-

@@ -1,24 +1,18 @@
-# Release name
-PRODUCT_RELEASE_NAME := Nexus7
+## Specify phone tech before including full_phone
+$(call inherit-product, vendor/cm/config/gsm.mk)
 
-# Boot animation
-TARGET_BOOTANIMATION_NAME := vertical-800x1280
+# Release name
+PRODUCT_RELEASE_NAME := fx3
 
 # Inherit some common CM stuff.
-$(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
-
-# Enhanced NFC
-$(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
+$(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/asus/grouper/full_grouper.mk)
+$(call inherit-product, device/lge/fx3/device_fx3.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := fx3
 PRODUCT_NAME := cm_fx3
-PRODUCT_BRAND := Optimus
-PRODUCT_MODEL := Optimus f3
-PRODUCT_MANUFACTURER := LG
-
-#Set build fingerprint / ID / Product Name ect.
-#PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=nakasi BUILD_FINGERPRINT="google/nakasi/:4.1.1/JRO03D/402395:user/release-keys" PRIVATE_BUILD_DESC="nakasi-user 4.1.1 JRO03D 402395 release-keys"
+PRODUCT_BRAND := lge
+PRODUCT_MODEL := fx3
+PRODUCT_MANUFACTURER := lge
