@@ -28,7 +28,7 @@ TARGET_PREBUILT_KERNEL := device/lge/fx3/kernel
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-BOARD_CUSTOM_RECOVERY_UI := ../../device/lge/fx3/recovery/default_recovery_ui.c
+#BOARD_CUSTOM_RECOVERY_UI := ../../device/lge/fx3/recovery/default_recovery_ui.c
 BOARD_CUSTOM_RECOVERY_POWER_PROFILE := ../../device/lge/fx3/recovery/custom_power.c
 
 DEVICE_RESOLUTION := 480x800
